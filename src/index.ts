@@ -9,8 +9,9 @@ export type VanguardTranslate = (key: string) => string;
 export default (props: VanguardTranslateProps = null): VanguardTranslate => {
 	/** Allow for props to be empty and it to autofill, in case where it is globally defined */
 	const translations = (props ?? usePage().props.translations) as KeyedObject;
+    if (!translations) throw new Error("Translations not found in props or globally defined.");
 
-	/** Unwrap the dot rotation */
+	/** Unwrap the dot notation */
 	const __ = (key: string): string =>
 		key
 			.split(".")
