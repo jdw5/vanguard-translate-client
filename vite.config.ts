@@ -9,7 +9,7 @@ export default defineConfig({
       fileName: `vanguard-translate`,
     },
     rollupOptions: {
-      external: ["vue", "@inertiajs/vue3", "axios"],
+      external: ["@inertiajs/vue3", "axios"],
     },
   },
 })

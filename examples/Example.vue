@@ -1,6 +1,6 @@
 <script setup>
 
-// Dummy props
+// Example props, generated as when using the server package
 const props = {
     translate: {
         login: {

@@ -1,24 +1,24 @@
 import { usePage } from "@inertiajs/vue3";
 
-export type VanguardTranslateProps = object | null;
+export type KeyedObject = { [key: string]: KeyedObject | string };
 
-const page = usePage();
+export type VanguardTranslateProps = KeyedObject | null;
 
-const unwrap = (obj: object) => {
-	const unwrapped = {};
-	Object.keys(obj).forEach((key) => {
-		unwrapped[key] = obj[key].value;
-	});
-	return unwrapped;
-};
+export type VanguardTranslate = (key: string) => string;
 
-export default (props: VanguardTranslateProps = null) => {
-	// Unwrap the props as dot notation
-	const translations = unwrap(props === null ? {} : page.props.translations);
+export default (props: VanguardTranslateProps = null): VanguardTranslate => {
+	/** Allow for props to be empty and it to autofill, in case where it is globally defined */
+	const translations = (props ?? usePage().props.translations) as KeyedObject;
 
-	const retrieve = (key: string) => {
-		return translations[key] || key;
-	};
+	/** Unwrap the dot rotation */
+	const __ = (key: string): string =>
+		key
+			.split(".")
+			.reduce(
+				(acc: any, part: string) =>
+					acc !== undefined && acc[part] !== undefined ? acc[part] : key,
+				translations,
+			);
 
-	return retrieve;
+	return __;
 };
