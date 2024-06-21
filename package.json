@@ -12,8 +12,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run prettier && vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "prettier": "prettier src/ --write",
+    "build": "npm run format && vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "format": "npx @biomejs/biome format --write src/",
     "patch": "npm version patch --no-git-tag-version",
     "minor": "npm version minor --no-git-tag-version"
   },
